@@ -97,7 +97,7 @@ animator = NodePath("AnimatedSprite2D")
 sprite_frames = SubResource("SpriteFrames_ek1d2")
 animation = &"run"
 autoplay = "idle"
-frame_progress = 0.27293018
+frame_progress = 0.42195493
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)

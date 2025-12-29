@@ -16,7 +16,7 @@ scale = Vector2(8.335417, 8.335416)
 texture = ExtResource("1_iukft")
 
 [node name="Background 2" type="Sprite2D" parent="."]
-position = Vector2(1005, -1)
+position = Vector2(1005, -18)
 scale = Vector2(8.378267, 8.378267)
 texture = ExtResource("1_iukft")
 
@@ -24,7 +24,7 @@ texture = ExtResource("1_iukft")
 zoom = Vector2(0.285, 0.285)
 
 [node name="Player" parent="." instance=ExtResource("2_gl6un")]
-position = Vector2(-1001, -7)
+position = Vector2(-1529, 599)
 scale = Vector2(8.335417, 8.335416)
 
 [node name="Boundary" type="StaticBody2D" parent="."]
@@ -32,7 +32,7 @@ position = Vector2(-1001, -7)
 scale = Vector2(8.335417, 8.335416)
 
 [node name="CollisionShape2D-Top" type="CollisionShape2D" parent="Boundary"]
-position = Vector2(119.97, 1.679596)
+position = Vector2(119.85003, 169.15771)
 rotation = -3.1415927
 shape = SubResource("WorldBoundaryShape2D_gl6un")
 
@@ -50,4 +50,5 @@ position = Vector2(14.276428, 2.1594605)
 rotation = 1.5707964
 shape = SubResource("WorldBoundaryShape2D_gl6un")
 
-[node name="Area2D" parent="." instance=ExtResource("3_j5yw3")]
+[node name="Slimer" parent="." instance=ExtResource("3_j5yw3")]
+position = Vector2(1657, 621)
