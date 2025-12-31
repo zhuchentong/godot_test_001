@@ -1,14 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://bmt63xbiocdj"]
+[gd_scene load_steps=6 format=3 uid="uid://bmt63xbiocdj"]
 
 [ext_resource type="Texture2D" uid="uid://cr67h2hdg76qe" path="res://AssetBundle/Sprites/ForestBackground.png" id="1_iukft"]
+[ext_resource type="Script" uid="uid://7q4x0p2yg6x3" path="res://Scripts/GameManager.gd" id="1_kldst"]
 [ext_resource type="PackedScene" uid="uid://criisfqve77ef" path="res://Scenes/Play.tscn" id="2_gl6un"]
-[ext_resource type="PackedScene" uid="uid://smauh1q1qk8b" path="res://Scenes/Slimer.tscn" id="3_j5yw3"]
+[ext_resource type="PackedScene" uid="uid://smauh1q1qk8b" path="res://Scenes/Slime.tscn" id="3_j5yw3"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gl6un"]
 distance = -136.16597
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("spawn_timer", "score_label")]
 y_sort_enabled = true
+script = ExtResource("1_kldst")
+slime_scene = ExtResource("3_j5yw3")
+spawn_timer = NodePath("Timer")
+score_label = NodePath("CanvasLayer/Label")
 
 [node name="Background 1" type="Sprite2D" parent="."]
 position = Vector2(-1001, -7)
@@ -23,10 +28,6 @@ texture = ExtResource("1_iukft")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.285, 0.285)
 
-[node name="Player" parent="." instance=ExtResource("2_gl6un")]
-position = Vector2(-1529, 599)
-scale = Vector2(8.335417, 8.335416)
-
 [node name="Boundary" type="StaticBody2D" parent="."]
 position = Vector2(-1001, -7)
 scale = Vector2(8.335417, 8.335416)
@@ -34,21 +35,48 @@ scale = Vector2(8.335417, 8.335416)
 [node name="CollisionShape2D-Top" type="CollisionShape2D" parent="Boundary"]
 position = Vector2(119.85003, 169.15771)
 rotation = -3.1415927
+scale = Vector2(0.1, 1.1)
 shape = SubResource("WorldBoundaryShape2D_gl6un")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D-Bottom" type="CollisionShape2D" parent="Boundary"]
 position = Vector2(121.16971, 0)
 shape = SubResource("WorldBoundaryShape2D_gl6un")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D-Right" type="CollisionShape2D" parent="Boundary"]
 position = Vector2(225.78355, 6.128431e-14)
 rotation = -1.5707964
 shape = SubResource("WorldBoundaryShape2D_gl6un")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D-Left" type="CollisionShape2D" parent="Boundary"]
 position = Vector2(14.276428, 2.1594605)
 rotation = 1.5707964
 shape = SubResource("WorldBoundaryShape2D_gl6un")
+metadata/_edit_lock_ = true
 
-[node name="Slimer" parent="." instance=ExtResource("3_j5yw3")]
-position = Vector2(1657, 621)
+[node name="Player" parent="." instance=ExtResource("2_gl6un")]
+position = Vector2(-1529, 599)
+scale = Vector2(8.335417, 8.335416)
+
+[node name="Slime" parent="." instance=ExtResource("3_j5yw3")]
+position = Vector2(2210, 1001)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 58.0
+offset_top = 20.0
+offset_right = 119.0
+offset_bottom = 43.0
+scale = Vector2(4, 4.48)
+text = "Score: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="timeout" from="Timer" to="." method="_spawn_slime"]

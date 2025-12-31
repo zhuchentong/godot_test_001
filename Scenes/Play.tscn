@@ -1,7 +1,32 @@
-[gd_scene load_steps=15 format=3 uid="uid://criisfqve77ef"]
+[gd_scene load_steps=22 format=3 uid="uid://criisfqve77ef"]
 
 [ext_resource type="Script" uid="uid://dkcacwaerkiy5" path="res://Scripts/Play.gd" id="1_4kp6b"]
 [ext_resource type="Texture2D" uid="uid://br38x0v016d0f" path="res://AssetBundle/Sprites/Foxy.png" id="1_rpyyv"]
+[ext_resource type="PackedScene" uid="uid://drkcmd0s64aey" path="res://Scenes/Bullet.tscn" id="2_vlv1q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hagi3"]
+atlas = ExtResource("1_rpyyv")
+region = Rect2(0, 256, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3can"]
+atlas = ExtResource("1_rpyyv")
+region = Rect2(33, 256, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ui3gn"]
+atlas = ExtResource("1_rpyyv")
+region = Rect2(66, 256, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n87tl"]
+atlas = ExtResource("1_rpyyv")
+region = Rect2(99, 256, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n5m2s"]
+atlas = ExtResource("1_rpyyv")
+region = Rect2(132, 256, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpmux"]
+atlas = ExtResource("1_rpyyv")
+region = Rect2(165, 256, 33, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4kp6b"]
 atlas = ExtResource("1_rpyyv")
@@ -47,6 +72,29 @@ region = Rect2(165, 32, 33, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_hagi3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3can")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ui3gn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n87tl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n5m2s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpmux")
+}],
+"loop": true,
+"name": &"game_over",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_4kp6b")
 }, {
 "duration": 1.0,
@@ -89,16 +137,23 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_4kp6b"]
 radius = 14.035668
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animator")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animator", "timer")]
 script = ExtResource("1_4kp6b")
 animator = NodePath("AnimatedSprite2D")
+timer = NodePath("FireTimer")
+bullet_scene = ExtResource("2_vlv1q")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ek1d2")
-animation = &"run"
+animation = &"game_over"
 autoplay = "idle"
-frame_progress = 0.42195493
+frame_progress = 0.9140572
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_4kp6b")
+
+[node name="FireTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="FireTimer" to="." method="_on_fire"]
