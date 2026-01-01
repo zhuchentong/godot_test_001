@@ -123,7 +123,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aog8b"]
-radius = 29.663189
+radius = 28.973724
 
 [node name="Slime" type="Area2D" node_paths=PackedStringArray("animator")]
 script = ExtResource("1_p1xxi")
@@ -132,13 +132,18 @@ animator = NodePath("AnimatedSprite2D")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(5.9400005, 5.9400005)
 sprite_frames = SubResource("SpriteFrames_3km2d")
-animation = &"death"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, 60)
+position = Vector2(3.999999, 61.000004)
 scale = Vector2(2.9, 2.9)
 shape = SubResource("CircleShape2D_aog8b")
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-139, -129, 279, 282)
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

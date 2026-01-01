@@ -1,19 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmt63xbiocdj"]
+[gd_scene load_steps=7 format=3 uid="uid://bmt63xbiocdj"]
 
 [ext_resource type="Texture2D" uid="uid://cr67h2hdg76qe" path="res://AssetBundle/Sprites/ForestBackground.png" id="1_iukft"]
 [ext_resource type="Script" uid="uid://7q4x0p2yg6x3" path="res://Scripts/GameManager.gd" id="1_kldst"]
 [ext_resource type="PackedScene" uid="uid://criisfqve77ef" path="res://Scenes/Play.tscn" id="2_gl6un"]
 [ext_resource type="PackedScene" uid="uid://smauh1q1qk8b" path="res://Scenes/Slime.tscn" id="3_j5yw3"]
+[ext_resource type="FontFile" uid="uid://dcnswo5vl3mm2" path="res://AssetBundle/Uranus_Pixel_11Px.ttf" id="5_b2bpf"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gl6un"]
 distance = -136.16597
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("spawn_timer", "score_label")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("spawn_timer", "score_label", "game_over_label")]
 y_sort_enabled = true
 script = ExtResource("1_kldst")
 slime_scene = ExtResource("3_j5yw3")
 spawn_timer = NodePath("Timer")
-score_label = NodePath("CanvasLayer/Label")
+score_label = NodePath("CanvasLayer/Score Label")
+game_over_label = NodePath("CanvasLayer/Game Over Label")
 
 [node name="Background 1" type="Sprite2D" parent="."]
 position = Vector2(-1001, -7)
@@ -69,14 +71,55 @@ autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Label" type="Label" parent="CanvasLayer"]
-offset_left = 58.0
-offset_top = 20.0
-offset_right = 119.0
-offset_bottom = 43.0
-scale = Vector2(4, 4.48)
+[node name="Score Label" type="Label" parent="CanvasLayer"]
+offset_left = 978.0
+offset_top = 15.000001
+offset_right = 1039.0
+offset_bottom = 38.0
+scale = Vector2(2.2499995, 2.5199995)
 text = "Score: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Game Over Label" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -342.5
+offset_top = -170.5
+offset_right = 257.0
+offset_bottom = -5.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0.2290636, 0.7562688, 0.4842587, 1)
+theme_override_constants/outline_size = 60
+theme_override_fonts/font = ExtResource("5_b2bpf")
+theme_override_font_sizes/font_size = 120
+text = "Game Over!"
+
+[node name="Maker Label" type="Label" parent="CanvasLayer/Game Over Label"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -279.0
+offset_top = 92.0
+offset_right = 279.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0.2290636, 0.7562688, 0.4842587, 1)
+theme_override_constants/outline_size = 60
+theme_override_fonts/font = ExtResource("5_b2bpf")
+theme_override_font_sizes/font_size = 60
+text = "Go On"
+horizontal_alignment = 1
 
 [connection signal="timeout" from="Timer" to="." method="_spawn_slime"]

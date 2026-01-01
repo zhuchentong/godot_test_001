@@ -14,6 +14,9 @@ func _physics_process(_delta: float) -> void:
 		
 	velocity = Input.get_vector("left","right","up",'down') * move_speed;
 	
+	if Input.is_action_just_pressed("fire"):
+		_on_fire()
+	
 	# 如果速度为0, 播放站立动画
 	if velocity == Vector2.ZERO:
 		animator.play("idle")
@@ -24,15 +27,19 @@ func _physics_process(_delta: float) -> void:
 	
 	
 func game_over() -> void:
-	is_game_over = true
-	animator.play("game_over")
-	await get_tree().create_timer(3).timeout
-	get_tree().reload_current_scene()
+	if not is_game_over:
+		is_game_over = true
+		animator.play("game_over")
+		
+		get_tree().current_scene.show_game_over()
+		
+		await get_tree().create_timer(1.2).timeout
+		get_tree().reload_current_scene()
 
 
 func _on_fire() -> void:
-	if velocity != Vector2.ZERO or is_game_over:
-		return 
+	#if velocity != Vector2.ZERO or is_game_over:
+		#return 
 		
 	var bullet_node = bullet_scene.instantiate()
 	bullet_node.position = position + Vector2(60, 60)

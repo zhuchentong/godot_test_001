@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://criisfqve77ef"]
+[gd_scene load_steps=23 format=3 uid="uid://criisfqve77ef"]
 
 [ext_resource type="Script" uid="uid://dkcacwaerkiy5" path="res://Scripts/Play.gd" id="1_4kp6b"]
 [ext_resource type="Texture2D" uid="uid://br38x0v016d0f" path="res://AssetBundle/Sprites/Foxy.png" id="1_rpyyv"]
@@ -6,27 +6,31 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hagi3"]
 atlas = ExtResource("1_rpyyv")
-region = Rect2(0, 256, 33, 32)
+region = Rect2(1, 256, 33, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t3can"]
 atlas = ExtResource("1_rpyyv")
-region = Rect2(33, 256, 33, 32)
+region = Rect2(34, 256, 33, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ui3gn"]
 atlas = ExtResource("1_rpyyv")
-region = Rect2(66, 256, 33, 32)
+region = Rect2(67, 256, 33, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n87tl"]
 atlas = ExtResource("1_rpyyv")
-region = Rect2(99, 256, 33, 32)
+region = Rect2(100, 256, 33, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n5m2s"]
 atlas = ExtResource("1_rpyyv")
-region = Rect2(132, 256, 33, 32)
+region = Rect2(133, 256, 33, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vpmux"]
 atlas = ExtResource("1_rpyyv")
-region = Rect2(165, 256, 33, 32)
+region = Rect2(166, 256, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijdo8"]
+atlas = ExtResource("1_rpyyv")
+region = Rect2(199, 256, 33, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4kp6b"]
 atlas = ExtResource("1_rpyyv")
@@ -88,6 +92,36 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vpmux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hagi3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3can")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ui3gn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n87tl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n5m2s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpmux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ijdo8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ijdo8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ijdo8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ijdo8")
 }],
 "loop": true,
 "name": &"game_over",
@@ -144,10 +178,11 @@ timer = NodePath("FireTimer")
 bullet_scene = ExtResource("2_vlv1q")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2.3841858e-07, 0)
 sprite_frames = SubResource("SpriteFrames_ek1d2")
 animation = &"game_over"
 autoplay = "idle"
-frame_progress = 0.9140572
+frame_progress = 0.338784
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
@@ -155,5 +190,3 @@ shape = SubResource("CircleShape2D_4kp6b")
 
 [node name="FireTimer" type="Timer" parent="."]
 autostart = true
-
-[connection signal="timeout" from="FireTimer" to="." method="_on_fire"]

@@ -4,6 +4,7 @@ extends Node2D
 @export var spawn_timer: Timer
 @export var score = 0
 @export var score_label: Label
+@export var game_over_label: Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -15,11 +16,27 @@ func _process(delta: float) -> void:
 	spawn_timer.wait_time -= 0.2 * delta
 	spawn_timer.wait_time = clamp(spawn_timer.wait_time, 1, 3)
 	
-	score_label.text = "Score: " + str(score)
+	score_label.text = "Gold: " + str(score)
 
 
 func _spawn_slime() -> void:
+	var is_huge: bool = randf_range(0,1) > 0.8
 	var slime_node = slime_scene.instantiate()
+	
+	if is_huge:
+		slime_node.scale.x = slime_node.scale.x * 2
+		slime_node.scale.y = slime_node.scale.y * 2
+		slime_node.health = 3
+		
 	slime_node.position = Vector2(2230, randf_range(300,1000))
 	get_tree().current_scene.add_child(slime_node)
 	
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited(body) -> void:
+	if body is Area2D:
+		body.queue_free()
+		print("body is free")
+
+func show_game_over() -> void:
+	game_over_label.visible = true
